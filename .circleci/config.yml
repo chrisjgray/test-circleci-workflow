@@ -1,0 +1,38 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:10.15-jessie-browsers
+    working_directory: ~/
+    steps:
+      - run:
+          name: Make test directory
+          command: mkdir test_dir
+      - run:
+          name: Add Files and sub folder
+          command: touch test_dir/a.txt && touch test_dir/b.txt && mkdir test_dir/sub && touch test_dir/sub/c.txt
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - test_dir/
+  deploy:
+    docker:
+      - image: circleci/python:3.7
+    steps:
+      - attach_workspace:
+          at: /tmp/test_dir
+      - run:
+          name: Install awscli
+          command: sudo pip install awscli
+      - run:
+          name: check folder path
+          command: ls /tmp/test_dir
+
+workflows:
+  version: 2
+  build-test-deploy:
+    jobs:
+      - build:
+      - deploy:
+          requires:
+            - build

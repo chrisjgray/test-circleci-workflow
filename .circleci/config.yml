@@ -27,7 +27,6 @@ jobs:
       - run:
           name: check folder path
           command: ls /tmp/test_dir
-
 workflows:
   version: 2
   build-test-deploy:

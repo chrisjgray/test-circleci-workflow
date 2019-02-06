@@ -26,7 +26,7 @@ jobs:
           command: sudo pip install awscli
       - run:
           name: check folder path
-          command: ls /tmp/test_dir
+          command: ls /tmp/test_dir & ls /tmp/test_dir/sub
 workflows:
   version: 2
   build-and-deploy:

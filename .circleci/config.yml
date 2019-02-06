@@ -12,9 +12,9 @@ jobs:
           name: Add Files and sub folder
           command: touch test_dir/a.txt && touch test_dir/b.txt && mkdir test_dir/sub && touch test_dir/sub/c.txt
       - persist_to_workspace:
-          root: ~/
+          root: ~
           paths:
-            - test_dir/
+            - test_dir/*
   deploy:
     docker:
       - image: circleci/python:3.7
